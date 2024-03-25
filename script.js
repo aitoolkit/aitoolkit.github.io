@@ -23,11 +23,11 @@ document.getElementById('40min').addEventListener('click', function() {
 });
 
 document.getElementById('45min').addEventListener('click', function() {
-  startCountdown(10*60, 5*60, 60, 45*60);
+  startCountdown(15*60, 5*60, 60, 45*60);
 });
 
 document.getElementById('1hour').addEventListener('click', function() {
-  startCountdown(900, 600, 300, 3600);
+  startCountdown(600, 300, 120, 3600);
 });
 
 document.getElementById('startBtn').addEventListener('click', function() {

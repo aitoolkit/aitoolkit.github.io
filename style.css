@@ -4,6 +4,10 @@ body, html {
   font-family: Arial, sans-serif;
 }
 
+h1 {
+  text-align: center;
+}
+
 .container {
   width: 100%;
   height: 100%;
@@ -30,6 +34,21 @@ input, button {
   margin: 10px;
   padding: 10px;
   font-size: 16px;
+}
+
+input {
+  width: 300px;
+}
+
+#startBtn {
+  width: 100px;
+  border: none;
+  background-color: bisque;
+}
+
+#startBtn:hover {
+  cursor: pointer;
+  background-color: chocolate;
 }
 
 .preset, #inputScreen {
@@ -63,10 +82,55 @@ input, button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 10px;
 }
 
 .box:hover {
   background-color: yellow;
   color: brown;
   cursor: pointer;
+}
+
+.box:hover span {
+  display: none
+}
+
+[id='1min']:hover:before {
+  content: "Green: 30s\A\AYellow: 15s\A\ARed: 0s";
+  white-space: pre;
+}
+
+[id='2min']:hover:before {
+  content: "Green: 1min\A\AYellow: 30s\A\ARed: 10s";
+  white-space: pre;
+}
+
+[id='5min']:hover:before {
+  content: "Green: 3min\A\AYellow: 2min\A\ARed: 30s";
+  white-space: pre;
+}
+
+[id='10min']:hover:before {
+  content: "Green: 4min\A\AYellow: 2min\A\ARed: 30s";
+  white-space: pre;
+}
+
+[id='25min']:hover:before {
+  content: "Green: 10min\A\AYellow: 5min\A\ARed: 1min";
+  white-space: pre;
+}
+
+[id='40min']:hover:before {
+  content: "Green: 10min\A\AYellow: 5min\A\ARed: 1min";
+  white-space: pre;
+}
+
+[id='45min']:hover:before {
+  content: "Green: 10min\A\AYellow: 5min\A\ARed: 1min";
+  white-space: pre;
+}
+
+[id='1hour']:hover:before {
+  content: "Green: 15min\A\AYellow: 5min\A\ARed: 2min";
+  white-space: pre;
 }
