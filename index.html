@@ -3,21 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Countdown Timer</title>
+<title>Countdown Timers</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="inputScreen" class="screen">
-  <input type="number" id="limit1" placeholder="Enter first limit (s)" min="1">
-  <input type="number" id="limit2" placeholder="Enter second limit (s)" min="1">
-  <input type="number" id="limit3" placeholder="Enter third limit (s)" min="1">
-  <input type="number" id="globalLimit" placeholder="Enter global limit (s)" min="1">
-  <button id="startBtn">Start</button>
-</div>
-<div id="countdownScreen" class="screen hidden">
-  <div id="timer">00:00</div>
-  <button id="stopBtn">Stop</button>
-</div>
-<script src="script.js"></script>
+  <div class="container">
+    <div id="inputScreen">
+      <div class="preset">
+        <div id="1min" class="box">1 minute countdown</div>
+        <div id="2min" class="box">2 minutes countdown</div>
+        <div id="5min" class="box">5 minutes countdown</div>
+        <div id="10min" class="box">10 minutes countdown</div>
+        <div id="25min" class="box">25 minutes countdown</div>
+        <div id="40min" class="box">40 minutes countdown</div>
+        <div id="45min" class="box">45 minutes countdown</div>
+        <div id="1hour" class="box">1 hour countdown</div>
+      </div>
+    
+      <div class="screen">
+        <input type="number" id="limit1" placeholder="Enter first limit (s)" min="1">
+        <input type="number" id="limit2" placeholder="Enter second limit (s)" min="1">
+        <input type="number" id="limit3" placeholder="Enter third limit (s)" min="1">
+        <input type="number" id="globalLimit" placeholder="Enter global limit (s)" min="1">
+        <button id="startBtn">Start</button>
+      </div>
+    </div>
+    <div id="countdownScreen" class="screen hidden">
+      <div id="timer">00:00</div>
+      <button id="stopBtn">Stop</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
