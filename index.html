@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown Timer</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="inputScreen" class="screen">
+  <input type="number" id="limit1" placeholder="Enter first limit (s)" min="1">
+  <input type="number" id="limit2" placeholder="Enter second limit (s)" min="1">
+  <input type="number" id="limit3" placeholder="Enter third limit (s)" min="1">
+  <input type="number" id="globalLimit" placeholder="Enter global limit (s)" min="1">
+  <button id="startBtn">Start</button>
+</div>
+<div id="countdownScreen" class="screen hidden">
+  <div id="timer">00:00</div>
+  <button id="stopBtn">Stop</button>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
