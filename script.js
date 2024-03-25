@@ -26,7 +26,7 @@ document.getElementById('45min').addEventListener('click', function() {
   startCountdown(10*60, 5*60, 60, 45*60);
 });
 
-document.getElementById('1heure').addEventListener('click', function() {
+document.getElementById('1hour').addEventListener('click', function() {
   startCountdown(900, 600, 300, 3600);
 });
 
