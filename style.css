@@ -2,11 +2,12 @@ body, html {
   height: 100%;
   margin: 0;
   font-family: Arial, sans-serif;
+  background-color: #EEEEEE;
 }
 
 h1 {
   text-align: center;
-  color: grey;
+  color: #4CCD99;
 }
 
 .container {
@@ -44,7 +45,7 @@ input {
 #startBtn {
   width: 100px;
   border: none;
-  background-color: bisque;
+  background-color:#FFC700;
 }
 
 #startBtn:hover {
@@ -77,8 +78,10 @@ input {
   text-align: center;
   height: 200px;
   width: 200px;
+  border-radius: 25px;
   margin: 20px;
-  background-color: bisque;
+  background-color: #007F73;
+  color: #DDDDDD;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -144,4 +147,25 @@ input {
 [id='1hour']:hover:before {
   content: "Green: 15min\A\AYellow: 5min\A\ARed: 2min";
   white-space: pre;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #dddddd;
+  color:gray;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 11px;
+  opacity: 50%;
+}
+
+.footer:hover {
+  opacity: 100%;
+}
+
+a:link, a:visited {
+  text-decoration: none;
+  color: #007F73;
 }
