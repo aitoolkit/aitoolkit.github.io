@@ -46,6 +46,7 @@ input {
   width: 100px;
   border: none;
   background-color:#007F73;
+  color: #DDDDDD;
 }
 
 #startBtn:hover, #stopBtn:hover {
