@@ -1,5 +1,5 @@
 document.getElementById('1min').addEventListener('click', function() {
-  startCountdown(30, 15, 0, 60);
+  startCountdown(30, 15, 5, 60);
 });
 
 document.getElementById('2min').addEventListener('click', function() {

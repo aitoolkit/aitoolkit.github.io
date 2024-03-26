@@ -96,7 +96,7 @@ input {
 }
 
 [id='1min']:hover:before {
-  content: "Green: 30s\A\AYellow: 15s\A\ARed: 0s";
+  content: "Green: 30s\A\AYellow: 15s\A\ARed: 5s";
   white-space: pre;
 }
 
