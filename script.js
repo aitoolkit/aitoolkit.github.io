@@ -38,6 +38,8 @@ document.getElementById('1hour').addEventListener('click', function() {
   startCountdown(600, 300, 120, 3600);
 });
 
+let stopBell = 0
+
 document.getElementById('startBtn').addEventListener('click', function() {
     const limit1 = parseInt(document.getElementById('limit1').value);
     const limit2 = parseInt(document.getElementById('limit2').value);
@@ -53,6 +55,9 @@ function startCountdown(limit1, limit2, limit3, globalLimit) {
   countdownScreen.classList.remove('hidden');
   
   let time = globalLimit;
+
+  stopBell = 0
+  
   const timerDisplay = document.getElementById('timer');
   const interval = setInterval(function() {
     const minutes = Math.floor(time / 60);
@@ -72,7 +77,9 @@ function startCountdown(limit1, limit2, limit3, globalLimit) {
       // setTimeout(function() { alert('Time is up!'); }, 30000); // This should be replaced by the bell sound.
       setTimeout(function() { 
           var bell = new Audio('reception-bell.mp3');
-          bell.play(); 
+          if (stopBell == 0) {
+            bell.play(); 
+          }
       }, 30000);
     }
   
@@ -80,6 +87,7 @@ function startCountdown(limit1, limit2, limit3, globalLimit) {
   }, 1000);
 
   document.getElementById('stopBtn').addEventListener('click', function() {
+    stopBell = 1
     clearInterval(interval);
     document.getElementById('inputScreen').classList.remove('hidden');
     countdownScreen.classList.add('hidden');
