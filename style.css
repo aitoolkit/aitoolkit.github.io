@@ -42,13 +42,13 @@ input {
   width: 300px;
 }
 
-#startBtn {
+#startBtn, #stopBtn {
   width: 100px;
   border: none;
-  background-color:#FFC700;
+  background-color:#007F73;
 }
 
-#startBtn:hover {
+#startBtn:hover, #stopBtn:hover {
   cursor: pointer;
   background-color: chocolate;
 }
