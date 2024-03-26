@@ -3,11 +3,19 @@ document.getElementById('1min').addEventListener('click', function() {
 });
 
 document.getElementById('2min').addEventListener('click', function() {
-  startCountdown(60, 30, 10, 120);
+  startCountdown(60, 30, 0, 120);
+});
+
+document.getElementById('3min').addEventListener('click', function() {
+  startCountdown(60, 30, 0, 180);
 });
 
 document.getElementById('5min').addEventListener('click', function() {
   startCountdown(180, 120, 30, 300);
+});
+
+document.getElementById('7min').addEventListener('click', function() {
+  startCountdown(120, 60, 0, 420);
 });
 
 document.getElementById('10min').addEventListener('click', function() {
