@@ -13,6 +13,7 @@ const countdownConfigs = {
 
 let stopBell = 0;
 let currentInterval = null;
+let lastTimerCount = 0;
 
 // Initialize all buttons for predefined countdowns
 Object.keys(countdownConfigs).forEach(key => {
@@ -41,15 +42,23 @@ function startCountdown(limit1, limit2, limit3, globalLimit) {
   
   let time = globalLimit;
   stopBell = 0;
+  lastTimerCount = 0;
   
   const timerDisplay = document.getElementById('timer');
   currentInterval = setInterval(function() {
-    updateTimerDisplay(time, timerDisplay, limit1, limit2, limit3);
-    if (time === 0) {
+    if ((time === 0) && (stopBell === 1)) {
+      updateTimerDisplay(time, timerDisplay, limit1, limit2, limit3);
       clearInterval(currentInterval);
       setTimeout(() => playBellIfNeeded(), 30000);
-    }
-    time--;
+    } else if ((time === 0) && (stopBell === 0)) {
+      updateTimerDisplay(time, timerDisplay, limit1, limit2, limit3);
+      setTimeout(() => playBellIfNeeded(), 30000);
+      time--;
+    } else if (time > 0) {
+      updateTimerDisplay(time, timerDisplay, limit1, limit2, limit3);
+      time--;
+    } 
+    lastTimerCount++;
   }, 1000);
 }
 
@@ -77,10 +86,18 @@ function playBellIfNeeded() {
 
 document.getElementById('stopBtn').addEventListener('click', function() {
   stopBell = 1;
+  const minutes = Math.floor(lastTimerCount / 60);
+  const seconds = lastTimerCount % 60;
+  const timeToDisplay = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
+  console.log(timeToDisplay);
   if (currentInterval) {
     clearInterval(currentInterval);
   }
   document.getElementById('inputScreen').classList.remove('hidden');
   document.getElementById('countdownScreen').classList.add('hidden');
   document.body.style.backgroundColor = 'white';
+
+  // Display time consumed
+  document.getElementById('timeDisplayer').classList.remove('hidden')
+  document.getElementById('counter').innerText = timeToDisplay
 });
