@@ -36,7 +36,7 @@ h2 {
 }
   
 #countdownScreen {
-  font-size: 3000%;
+  font-size: 1500%;
   color: blue;
 }
   
@@ -168,7 +168,7 @@ input {
   color:gray;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 11px;
-  opacity: 50%;
+  opacity: 20%;
 }
 
 .footer:hover {
@@ -178,4 +178,13 @@ input {
 a:link, a:visited {
   text-decoration: none;
   color: #007F73;
+}
+
+@media screen and (max-width: 600px) {
+
+  #countdownScreen {
+    font-size: 500%;
+    color: blue;
+  }
+
 }
