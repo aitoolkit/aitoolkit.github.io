@@ -3,6 +3,7 @@ const countdownConfigs = {
   '2min': { limit1: 60, limit2: 30, limit3: 0, globalLimit: 120 },
   '3min': { limit1: 60, limit2: 30, limit3: 0, globalLimit: 180 },
   '5min': { limit1: 180, limit2: 120, limit3: 30, globalLimit: 300 },
+  '6min': { limit1: 120, limit2: 60, limit3: 0, globalLimit: 360 },
   '7min': { limit1: 120, limit2: 60, limit3: 0, globalLimit: 420 },
   '10min': { limit1: 240, limit2: 120, limit3: 30, globalLimit: 600 },
   '25min': { limit1: 600, limit2: 300, limit3: 60, globalLimit: 1500 },
