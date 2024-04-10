@@ -134,6 +134,11 @@ input {
   white-space: pre;
 }
 
+[id='7min']:hover:before {
+  content: "Green: 2min\A\AYellow: 1min\A\ARed: 0s";
+  white-space: pre;
+}
+
 [id='10min']:hover:before {
   content: "Green: 4min\A\AYellow: 2min\A\ARed: 30s";
   white-space: pre;
