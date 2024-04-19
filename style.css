@@ -144,7 +144,22 @@ input {
   white-space: pre;
 }
 
+[id='20min']:hover:before {
+  content: "Green: 10min\A\AYellow: 5min\A\ARed: 1min";
+  white-space: pre;
+}
+
 [id='25min']:hover:before {
+  content: "Green: 10min\A\AYellow: 5min\A\ARed: 1min";
+  white-space: pre;
+}
+
+[id='30min']:hover:before {
+  content: "Green: 10min\A\AYellow: 5min\A\ARed: 1min";
+  white-space: pre;
+}
+
+[id='35min']:hover:before {
   content: "Green: 10min\A\AYellow: 5min\A\ARed: 1min";
   white-space: pre;
 }
