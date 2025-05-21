@@ -1,49 +1,800 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Countdown Timers</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poker Planning Pro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .container {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .view {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        h1, h2, h3 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #4CAF50;
+        }
+
+        .team-card h3 {
+            color: #4CAF50;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 1rem;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .poker-cards {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .poker-card {
+            width: 60px;
+            height: 80px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .poker-card:hover {
+            border-color: #4CAF50;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .poker-card.selected {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        .ticket {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .ticket-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .ticket-description {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .estimates {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .estimate {
+            background: #f0f0f0;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .qr-code {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .qr-placeholder {
+            width: 200px;
+            height: 200px;
+            background: #f0f0f0;
+            border: 2px dashed #ccc;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+        }
+
+        .event-code {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4CAF50;
+            text-align: center;
+            background: #f9f9f9;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-placeholder {
+            height: 200px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        .team-matrix {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 1rem;
+            height: 400px;
+            margin-top: 2rem;
+        }
+
+        .matrix-quadrant {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quadrant-title {
+            font-weight: bold;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid;
+        }
+
+        .q1 .quadrant-title { border-color: #4CAF50; color: #4CAF50; }
+        .q2 .quadrant-title { border-color: #FF9800; color: #FF9800; }
+        .q3 .quadrant-title { border-color: #f44336; color: #f44336; }
+        .q4 .quadrant-title { border-color: #2196F3; color: #2196F3; }
+
+        .team-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .team-item {
+            background: #f9f9f9;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .indicators-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .indicator-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .indicator-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .indicator-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .good { color: #4CAF50; }
+        .warning { color: #FF9800; }
+        .danger { color: #f44336; }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .poker-cards {
+                gap: 0.5rem;
+            }
+            
+            .poker-card {
+                width: 50px;
+                height: 70px;
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div id="inputScreen">
-      <h1>Choose from preset timers</h1>
-      <h2 id="timeDisplayer" class="hidden">Last timer <span id="counter"></span></h1>
-      <div class="preset">
-        <div id="7min" class="box"><span>Toastmasters speech<br>minutes countdown</span></div>
-        <div id="6min" class="box"><span>Toastmasters ice breaker<br>6 minutes countdown</span></div>
-        <div id="1min" class="box"><span>1 minute countdown</span></div>
-        <div id="2min" class="box"><span>2 minutes countdown</span></div>
-        <div id="3min" class="box"><span>3 minutes countdown</span></div>
-        <div id="5min" class="box"><span>5 minutes countdown</span></div>
-        <div id="10min" class="box"><span>10 minutes countdown</span></div>
-        <div id="20min" class="box"><span>20 minutes countdown</span></div>
-        <div id="25min" class="box"><span>25 minutes countdown</span></div>
-        <div id="30min" class="box"><span>30 minutes countdown</span></div>
-        <div id="35min" class="box"><span>35 minutes countdown</span></div>
-        <div id="40min" class="box"><span>40 minutes countdown</span></div>
-        <div id="45min" class="box"><span>45 minutes countdown</span></div>
-        <div id="1hour" class="box"><span>1 hour countdown</span></div>
-      </div>
-      <h1>Set a customised timer</h1>
-      <div class="screen">
-        <input type="number" id="globalLimit" placeholder="Enter total time in seconds" min="1">
-        <input type="number" id="limit1" placeholder="Enter first limit in seconds (green)" min="1">
-        <input type="number" id="limit2" placeholder="Enter second limit in seconds (yellow)" min="1">
-        <input type="number" id="limit3" placeholder="Enter third limit in seconds (red)" min="1">
-        <button id="startBtn">Start</button>
-      </div>
-    </div>
-    <div id="countdownScreen" class="screen hidden">
-      <div id="timer">00:00</div>
-      <button id="stopBtn">Stop</button>
-    </div>
-    
-  </div>
-  <div class="footer">Made with ❤️ by <a href="https://www.linkedin.com/in/mohammed-taha-el-ahmar"><strong>Mohammed EL AHMAR</strong></a></div>
+    <header class="header">
+        <div class="logo">🃏 Poker Planning Pro</div>
+        <div class="nav-buttons">
+            <button class="btn btn-secondary" onclick="showView('dashboard')">Admin Dashboard</button>
+            <button class="btn btn-secondary" onclick="showView('teams')">Teams</button>
+            <button class="btn btn-primary" onclick="showView('session')">Start Session</button>
+        </div>
+    </header>
 
-  <script src="script.js"></script>
+    <div class="container">
+        <!-- Teams View -->
+        <div id="teams" class="view active">
+            <h1>Teams Management</h1>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h2>All Teams</h2>
+                <button class="btn btn-primary" onclick="createTeam()">+ Create New Team</button>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-card">
+                    <h3>Frontend Ninjas</h3>
+                    <p>5 members • Created: 2024-01-15</p>
+                    <div class="team-stats">
+                        <div class="stat">
+                            <div class="stat-value">8.2</div>
+                            <div class="stat-label">Avg Accuracy</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Sessions</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">0.3</div>
+                            <div class="stat-label">Divergence</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">92%</div>
+                            <div class="stat-label">Consistency</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <h3>Backend Warriors</h3>
+                    <p>6 members • Created: 2024-01-20</p>
+                    <div class="team-stats">
+                        <div class="stat">
+                            <div class="stat-value">7.8</div>
+                            <div class="stat-label">Avg Accuracy</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">15</div>
+                            <div class="stat-label">Sessions</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">0.5</div>
+                            <div class="stat-label">Divergence</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">88%</div>
+                            <div class="stat-label">Consistency</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <h3>QA Guardians</h3>
+                    <p>4 members • Created: 2024-02-01</p>
+                    <div class="team-stats">
+                        <div class="stat">
+                            <div class="stat-value">9.1</div>
+                            <div class="stat-label">Avg Accuracy</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">8</div>
+                            <div class="stat-label">Sessions</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">0.2</div>
+                            <div class="stat-label">Divergence</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">95%</div>
+                            <div class="stat-label">Consistency</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Poker Session View -->
+        <div id="session" class="view">
+            <h1>Poker Planning Session</h1>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                <div>
+                    <h3>Create New Session</h3>
+                    <div class="form-group">
+                        <label>Select Team</label>
+                        <select id="teamSelect">
+                            <option>Frontend Ninjas</option>
+                            <option>Backend Warriors</option>
+                            <option>QA Guardians</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Session Name</label>
+                        <input type="text" placeholder="Sprint 12 Planning" value="Sprint 12 Planning">
+                    </div>
+                    <button class="btn btn-primary" onclick="startSession()">Start Session</button>
+                </div>
+                
+                <div id="session-info" style="display: none;">
+                    <h3>Session Active</h3>
+                    <div class="event-code">ABC123</div>
+                    <div class="qr-code">
+                        <div class="qr-placeholder">
+                            <span>QR Code</span>
+                        </div>
+                        <p>Team members can join using code: <strong>ABC123</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="estimation-area" style="display: none;">
+                <h3>Current Ticket</h3>
+                <div class="ticket">
+                    <div class="ticket-title">PROJ-123: Implement user authentication</div>
+                    <div class="ticket-description">
+                        As a user, I want to be able to log in securely so that I can access my personalized content.
+                        Acceptance criteria: OAuth integration, session management, password validation.
+                    </div>
+                </div>
+
+                <h4>Select Your Estimate</h4>
+                <div class="poker-cards">
+                    <div class="poker-card" onclick="selectCard(this, '1')">1</div>
+                    <div class="poker-card" onclick="selectCard(this, '2')">2</div>
+                    <div class="poker-card" onclick="selectCard(this, '3')">3</div>
+                    <div class="poker-card" onclick="selectCard(this, '5')">5</div>
+                    <div class="poker-card" onclick="selectCard(this, '8')">8</div>
+                    <div class="poker-card" onclick="selectCard(this, '13')">13</div>
+                    <div class="poker-card" onclick="selectCard(this, '21')">21</div>
+                    <div class="poker-card" onclick="selectCard(this, '?')">?</div>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <h4>Current Estimates</h4>
+                    <div class="estimates">
+                        <div class="estimate">John: 5</div>
+                        <div class="estimate">Sarah: 8</div>
+                        <div class="estimate">Mike: 3</div>
+                        <div class="estimate">You: <span id="your-estimate">-</span></div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" style="margin-top: 1rem;" onclick="nextTicket()">Reveal & Next Ticket</button>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard View -->
+        <div id="dashboard" class="view">
+            <h1>Admin Dashboard</h1>
+            
+            <div class="indicators-grid">
+                <div class="indicator-card">
+                    <div class="indicator-value good">0.35</div>
+                    <div class="indicator-label">Average Divergence</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-value warning">1.2</div>
+                    <div class="indicator-label">Estimation vs Actual Difference</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-value good">91%</div>
+                    <div class="indicator-label">Estimation Consistency</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-value good">87%</div>
+                    <div class="indicator-label">Velocity Prediction Accuracy</div>
+                </div>
+            </div>
+
+            <h2>Team Performance Matrix</h2>
+            <div class="team-matrix">
+                <div class="matrix-quadrant q1">
+                    <div class="quadrant-title">High Accuracy + Low Divergence</div>
+                    <div style="font-size: 0.9rem; color: #4CAF50; margin-bottom: 1rem;">
+                        🎯 Champions - Maintain excellence
+                    </div>
+                    <div class="team-list">
+                        <div class="team-item">QA Guardians</div>
+                    </div>
+                </div>
+                
+                <div class="matrix-quadrant q2">
+                    <div class="quadrant-title">High Accuracy + High Divergence</div>
+                    <div style="font-size: 0.9rem; color: #FF9800; margin-bottom: 1rem;">
+                        🔧 Need Alignment - Focus on team sync
+                    </div>
+                    <div class="team-list">
+                        <div class="team-item">Frontend Ninjas</div>
+                    </div>
+                </div>
+                
+                <div class="matrix-quadrant q3">
+                    <div class="quadrant-title">Low Accuracy + High Divergence</div>
+                    <div style="font-size: 0.9rem; color: #f44336; margin-bottom: 1rem;">
+                        🚨 Critical - Need training & alignment
+                    </div>
+                    <div class="team-list">
+                        <div class="team-item">Backend Warriors</div>
+                    </div>
+                </div>
+                
+                <div class="matrix-quadrant q4">
+                    <div class="quadrant-title">Low Accuracy + Low Divergence</div>
+                    <div style="font-size: 0.9rem; color: #2196F3; margin-bottom: 1rem;">
+                        📚 Need Training - Consistent but wrong
+                    </div>
+                    <div class="team-list">
+                        <!-- No teams currently in this quadrant -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3>Estimation Accuracy Trend</h3>
+                    <div class="chart-placeholder">
+                        📈 Line chart showing estimation accuracy over time
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3>Team Divergence Analysis</h3>
+                    <div class="chart-placeholder">
+                        📊 Bar chart showing divergence levels by team
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3>Velocity Prediction vs Actual</h3>
+                    <div class="chart-placeholder">
+                        🎯 Scatter plot showing predicted vs actual velocity
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3>Recent Session Activity</h3>
+                    <div style="font-size: 0.9rem;">
+                        <div style="margin-bottom: 0.5rem;">
+                            <strong>Frontend Ninjas</strong> - Sprint 12 Planning<br>
+                            <span style="color: #666;">2 hours ago • 8 tickets estimated</span>
+                        </div>
+                        <div style="margin-bottom: 0.5rem;">
+                            <strong>Backend Warriors</strong> - Epic Breakdown<br>
+                            <span style="color: #666;">1 day ago • 5 tickets estimated</span>
+                        </div>
+                        <div style="margin-bottom: 0.5rem;">
+                            <strong>QA Guardians</strong> - Test Planning<br>
+                            <span style="color: #666;">3 days ago • 6 tickets estimated</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentView = 'teams';
+        let selectedEstimate = null;
+        let currentSession = null;
+
+        function showView(viewName) {
+            // Hide all views
+            document.querySelectorAll('.view').forEach(view => {
+                view.classList.remove('active');
+            });
+            
+            // Show selected view
+            document.getElementById(viewName).classList.add('active');
+            currentView = viewName;
+        }
+
+        function createTeam() {
+            const teamName = prompt('Enter team name:');
+            if (teamName) {
+                alert(`Team "${teamName}" created successfully!`);
+                // In a real app, this would make an API call
+            }
+        }
+
+        function startSession() {
+            const teamSelect = document.getElementById('teamSelect');
+            const selectedTeam = teamSelect.value;
+            
+            // Show session info
+            document.getElementById('session-info').style.display = 'block';
+            document.getElementById('estimation-area').style.display = 'block';
+            
+            // Generate random session code
+            const sessionCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+            document.querySelector('.event-code').textContent = sessionCode;
+            
+            currentSession = {
+                team: selectedTeam,
+                code: sessionCode,
+                tickets: [
+                    {
+                        id: 'PROJ-123',
+                        title: 'Implement user authentication',
+                        description: 'As a user, I want to be able to log in securely so that I can access my personalized content.'
+                    },
+                    {
+                        id: 'PROJ-124',
+                        title: 'Create dashboard widgets',
+                        description: 'As a user, I want customizable dashboard widgets so that I can see relevant information at a glance.'
+                    }
+                ],
+                currentTicketIndex: 0
+            };
+            
+            alert(`Session started for ${selectedTeam}! Share code: ${sessionCode}`);
+        }
+
+        function selectCard(cardElement, value) {
+            // Remove previous selection
+            document.querySelectorAll('.poker-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Select current card
+            cardElement.classList.add('selected');
+            selectedEstimate = value;
+            
+            // Update display
+            document.getElementById('your-estimate').textContent = value;
+        }
+
+        function nextTicket() {
+            if (!currentSession) return;
+            
+            // Record estimation (in real app, this would save to database)
+            const estimates = {
+                'PROJ-123': {
+                    'John': 5,
+                    'Sarah': 8,
+                    'Mike': 3,
+                    'You': selectedEstimate
+                }
+            };
+            
+            alert('Estimates revealed! Moving to next ticket...');
+            
+            // Reset for next ticket
+            document.querySelectorAll('.poker-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            selectedEstimate = null;
+            document.getElementById('your-estimate').textContent = '-';
+            
+            // Update ticket (in real app, this would load from backend)
+            if (currentSession.currentTicketIndex < currentSession.tickets.length - 1) {
+                currentSession.currentTicketIndex++;
+                const nextTicket = currentSession.tickets[currentSession.currentTicketIndex];
+                document.querySelector('.ticket-title').textContent = `${nextTicket.id}: ${nextTicket.title}`;
+                document.querySelector('.ticket-description').textContent = nextTicket.description;
+            } else {
+                alert('All tickets estimated! Session completed.');
+            }
+        }
+
+        // Simulate real-time updates
+        function simulateRealtimeUpdates() {
+            // This would typically use WebSockets or Server-Sent Events
+            setInterval(() => {
+                if (currentView === 'dashboard') {
+                    // Update some dashboard values slightly
+                    const indicators = document.querySelectorAll('.indicator-value');
+                    // Simulate live data updates
+                }
+            }, 5000);
+        }
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            simulateRealtimeUpdates();
+        });
+
+        // Mock data for demonstration
+        const mockData = {
+            teams: [
+                {
+                    name: 'Frontend Ninjas',
+                    members: 5,
+                    sessions: 12,
+                    accuracy: 8.2,
+                    divergence: 0.3,
+                    consistency: 92
+                },
+                {
+                    name: 'Backend Warriors', 
+                    members: 6,
+                    sessions: 15,
+                    accuracy: 7.8,
+                    divergence: 0.5,
+                    consistency: 88
+                },
+                {
+                    name: 'QA Guardians',
+                    members: 4,
+                    sessions: 8,
+                    accuracy: 9.1,
+                    divergence: 0.2,
+                    consistency: 95
+                }
+            ],
+            estimations: [
+                {
+                    ticketId: 'PROJ-123',
+                    estimates: [5, 8, 3, 5, 8],
+                    finalEstimate: 5,
+                    actualEffort: 6,
+                    date: '2024-05-20'
+                }
+            ]
+        };
+    </script>
 </body>
 </html>
